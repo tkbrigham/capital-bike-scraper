@@ -11,9 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150317234100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "capital_scrapers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "station_stats", force: :cascade do |t|
+    t.integer  "station_id"
+    t.datetime "statusTime"
+    t.integer  "cb_nbBikes"
+    t.integer  "cb_nbEmptyDocks"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "station_stats", ["station_id"], name: "index_station_stats_on_station_id", using: :btree
+
+  create_table "stations", force: :cascade do |t|
+    t.integer  "cb_id"
+    t.string   "cb_name"
+    t.integer  "cb_terminalName"
+    t.datetime "cb_lastCommWithServer"
+    t.decimal  "cb_lat"
+    t.decimal  "cb_long"
+    t.boolean  "cb_installed"
+    t.boolean  "cb_locked"
+    t.datetime "cb_installDate"
+    t.datetime "cb_removalDate"
+    t.boolean  "cb_temporary"
+    t.boolean  "cb_public"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.datetime "cb_latestUpdateTime"
+  end
 
 end

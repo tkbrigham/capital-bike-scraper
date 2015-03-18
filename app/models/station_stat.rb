@@ -1,3 +1,4 @@
 class StationStat < ActiveRecord::Base
-  has_one :station
+  belongs_to :station
+  attr_accessor :station_id, :statusTime, :cb_nbBikes, :cb_nbEmptyDocks
 end
