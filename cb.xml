@@ -1,6 +1,6 @@
 <stations lastUpdate="1426548760051" version="2.0">
   <station>
-    <id>1</id>
+   <id>1</id>
     <name>20th & Bell St</name>
     <terminalName>31000</terminalName>
     <lastCommWithServer>1426544036534</lastCommWithServer>
