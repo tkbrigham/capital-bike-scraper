@@ -3,6 +3,35 @@ class CapitalScraper
   cb_url = 'http://www.capitalbikeshare.com/data/stations/bikeStations.xml'
   @page = Nokogiri::XML(open(cb_url))
 
+  def self.load_all_station_stats
+    all_stations.each do |station|
+      load_station_stats(station)
+    end
+  end
+
+  def self.load_station_stats(station)
+    ss = StationStat.new()
+    ss['statusTime'] = Time.now
+    ss['station_id'] = station.css('id').first.text
+    ss['cb_nbBikes'] = station.css('nbBikes').first.text
+    ss['cb_nbEmptyDocks'] = station.css('nbEmptyDocks').first.text
+    ss.save!
+  end
+
+  def self.load_new_stations
+    new_stations.each do |station|
+      load_station(station)
+    end
+  end
+
+  def self.load_station(station)
+    s = Station.new()
+    station.children.each do |element|
+      s[cb(element.name)] = format_field(element) unless ['nbBikes','nbEmptyDocks'].include?(element.name)
+    end
+    s.save!
+  end
+
   def self.all_stations
     stations = []
     @page.css('station').each do |station|
@@ -36,6 +65,24 @@ class CapitalScraper
     formatted_field
   end
 
+  def self.new_stations
+    new_stations = []
+    all_stations.each do |s|
+      if new_station_ids.include?(s.css('id').first.text.to_i)
+        new_stations << s
+      end
+    end
+    new_stations
+  end
+
+  def self.new_station_ids
+    new_station_ids = []
+    for i in (existing_station_ids.max + 1)..cb_station_ids.max
+      new_station_ids << i
+    end
+    new_station_ids
+  end
+
   def self.existing_station_ids
     station_ids = []
     Station.find_each do |s|
@@ -52,52 +99,4 @@ class CapitalScraper
     station_ids
   end
   
-  def self.new_stations
-    new_stations = []
-    new_station_ids = []
-    for i in (existing_station_ids.max + 1)..cb_station_ids.max
-      new_station_ids << i
-    end
-    all_stations.each do |s|
-      if new_station_ids.include?(s.css('id').first.text.to_i)
-        puts s
-        new_stations << s
-      end
-    end
-    new_stations
-  end
-
-  def self.load_station_stats(station)
-    ss = StationStat.new()
-    ss['statusTime'] = Time.now
-    ss['station_id'] = station.css('id').first.text
-    ss['cb_nbBikes'] = station.css('nbBikes').first.text
-    ss['cb_nbEmptyDocks'] = station.css('nbEmptyDocks').first.text
-    puts ss.attributes
-    ss
-  end
-
-  def self.load_new_stations
-    puts "New stations:"
-    new_stations.each do |s|
-      puts s.css('id').first.text
-    end
-    puts "Want to add?"
-    add = gets.chomp
-    if add == 'y'
-      new_stations.each do |station|
-        load_station(station)
-      end
-    end
-    return "Finished!"
-  end
-
-  def self.load_station(station)
-    s = Station.new()
-    station.children.each do |element|
-      s[cb(element.name)] = format_field(element) unless ['nbBikes','nbEmptyDocks'].include?(element.name)
-    end
-    s.save
-  end
-
 end

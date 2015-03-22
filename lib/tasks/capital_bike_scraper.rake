@@ -7,8 +7,9 @@ def scrape_xml_page(url)
 end
 
 namespace :jobs do
-  desc "Prints all station data"
+  desc "Adds new Stations and adds all StationStats"
   task :cb_scrape => :environment do
-    CapitalScraper.load_all_stations
+    CapitalScraper.load_new_stations
+    CapitalScraper.load_all_station_stats
   end
 end
