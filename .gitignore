@@ -53,3 +53,22 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+
+# From yellowstone
+public/system
+*.DS_Store
+coverage/*
+*.swp
+rerun.txt
+/tags
+!.keep
+vendor/bundler_gems
+.env
+.foreman
+config/database.yml
+.rvmrc
+gems.tags
+public/assets
+dump.rdb
+.rbenv-version

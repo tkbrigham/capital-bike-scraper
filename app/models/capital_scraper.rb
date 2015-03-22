@@ -46,7 +46,24 @@ class CapitalScraper
       s[cb(element.name)] = format_field(element) unless ['nbBikes','nbEmptyDocks'].include?(element.name)
     end
     puts s.attributes
-    #s
+    #s.save
+  end
+  
+  def self.first_station
+    all_stations.first
+  end
+
+  def self.test
+    load_station_stats(first_station)
+  end
+
+  def self.load_station_stats(station)
+    ss = StationStat.new()
+    ss['statusTime'] = Time.now
+    ss['station_id'] = station.css('id').first.text
+    ss['cb_nbBikes'] = station.css('nbBikes').first.text
+    ss['cb_nbEmptyDocks'] = station.css('nbEmptyDocks').first.text
+    puts ss.attributes
   end
 
   def self.load_all_stations
