@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-
+ruby '2.0.0'
+gem 'rails_12factor'
 gem 'selenium-webdriver', '~> 2.45.0'
 gem 'nokogiri', '~> 1.6.6.2'
 gem 'foreigner', '~> 1.7.2'
@@ -9,7 +10,7 @@ gem 'rspec'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-# Use sqlite3 as the database for Active Record
+# Use psql database
 gem 'pg', '~> 0.18.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
