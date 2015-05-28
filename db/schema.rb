@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415001400) do
+ActiveRecord::Schema.define(version: 20150521035005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "station_availabilities", force: :cascade do |t|
+    t.integer  "station_id"
+    t.decimal  "stations"
+    t.decimal  "docks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "station_availabilities", ["station_id"], name: "index_station_availabilities_on_station_id", using: :btree
 
   create_table "station_stats", force: :cascade do |t|
     t.integer  "station_id"
