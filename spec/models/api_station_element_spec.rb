@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ApiStationElement, type: :model do
   describe "#update_data" do
-    f = File.read('cb_large.xml')
+    f = File.read('fixtures/cb_large.xml')
     f.gsub!('&','and')
     scrape_large = Nokogiri::XML(f)
     element = scrape_large.css('station').last

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CapitalParser, type: :model do
-  f = File.read('cb_large.xml')
+  f = File.read('fixtures/cb_large.xml')
   scrape_large = Nokogiri::XML(f)
 
   let(:parser_large)  { CapitalParser.new(scrape_large) }
