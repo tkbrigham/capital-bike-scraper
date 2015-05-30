@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20150521035005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "station_availabilities", force: :cascade do |t|
+  create_table "station_availabilities", id: false, force: :cascade do |t|
     t.integer "station_id"
     t.decimal "average_bikes"
     t.decimal "average_docks"
-    t.integer "day_of_week"
-    t.integer "time_integer"
+    t.integer "day"
+    t.string  "time"
   end
 
   add_index "station_availabilities", ["station_id"], name: "index_station_availabilities_on_station_id", using: :btree

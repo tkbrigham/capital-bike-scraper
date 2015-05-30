@@ -6,6 +6,6 @@ class StationAvailabilitiesController < ApplicationController
   end
 
   def show
-    @station_availability = StationAvailability.new(station_id: params[:station_id], time_integer: params[:id])
+    @station_availability = StationAvailability.new(station_id: params[:station_id], time: params[:time], day: params[:day])
   end
 end

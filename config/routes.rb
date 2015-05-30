@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :station do
     resources :stats, controller: 'station_stats'
-    resources :availability, controller: 'station_availabilities'
+    resources :availability, controller: 'station_availabilities', param: 'time'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
