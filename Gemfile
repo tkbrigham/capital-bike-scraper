@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'pg'
 gem 'pry'
 gem 'notes'
+gem 'newrelic_rpm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
