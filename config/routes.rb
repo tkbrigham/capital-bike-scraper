@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :station do
+  resources :station, controller: 'stations' do
     resources :stats, controller: 'station_stats'
     resources :availability, controller: 'station_availabilities', param: 'time'
   end
