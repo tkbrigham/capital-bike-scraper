@@ -4,7 +4,7 @@ class StationAvailability < ActiveRecord::Base
   belongs_to :station, primary_key: 'cb_id'
 
   after_initialize do |avail|
-    @time_integer = self.time
+    @time_string = self.time
     @station = Station.find_by(cb_id: station_id)
     @stats = stats_by_station_and_time(station_id)
 
@@ -13,9 +13,11 @@ class StationAvailability < ActiveRecord::Base
 
   def stats_by_station_and_time(station_id)
     s = StationStat.where('station_id = ?', station_id)
-    query = "to_char(scrape_timestamp, 'HH:MI') BETWEEN ? AND ?"
-    stats = s.where(query, )
+    query = "to_char(scrape_timestamp, 'HH24MI') BETWEEN ? AND ?"
+    stats = s.where(query, @time_string.round_down(5),
+                    @time_string.round_up(5))
     binding.pry
+    stats
   end
 
   def update!

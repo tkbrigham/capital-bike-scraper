@@ -5,7 +5,7 @@ class CreateStationAvailabilities < ActiveRecord::Migration
       t.decimal :average_bikes
       t.decimal :average_docks
       t.integer :day
-      t.integer :time
+      t.string :time
     end
   end
 end
