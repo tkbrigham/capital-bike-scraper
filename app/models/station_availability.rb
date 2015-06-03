@@ -16,7 +16,6 @@ class StationAvailability < ActiveRecord::Base
     query = "to_char(scrape_timestamp, 'HH24MI') BETWEEN ? AND ?"
     stats = s.where(query, (@time_integer - 9).to_s,
                     (@time_integer + 11).to_s)
-    binding.pry
     stats
   end
 
