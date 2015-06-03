@@ -1,5 +1,5 @@
 class StationAvailability < ActiveRecord::Base
-  include Roundable
+  #include Roundable
 
   belongs_to :station, primary_key: 'cb_id'
 
