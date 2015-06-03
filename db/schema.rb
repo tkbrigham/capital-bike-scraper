@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20150521035005) do
     t.decimal "average_bikes"
     t.decimal "average_docks"
     t.integer "day"
-    t.string  "time"
+    t.integer "time"
   end
 
   add_index "station_availabilities", ["station_id"], name: "index_station_availabilities_on_station_id", using: :btree
