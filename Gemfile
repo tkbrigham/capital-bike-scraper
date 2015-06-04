@@ -4,6 +4,7 @@ gem 'pg'
 gem 'pry'
 gem 'notes'
 gem 'newrelic_rpm'
+gem 'responders'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
