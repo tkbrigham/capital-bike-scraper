@@ -2,7 +2,8 @@ class StationAvailability < ActiveRecord::Base
   belongs_to :station, primary_key: 'cb_id'
 
   after_initialize do |avail|
-    @time_string = self.time
+    @min_time = mil_time_plus_min(self.time, -9)
+    @max_time = mil_time_plus_min(self.time, 11)
     @station = Station.find_by(cb_id: station_id)
     @stats = stats_by_station_and_time(station_id)
 
@@ -11,9 +12,8 @@ class StationAvailability < ActiveRecord::Base
 
   def stats_by_station_and_time(station_id)
     s = StationStat.where('station_id = ?', station_id)
-    query = "to_char(scrape_timestamp, 'HH24MI') BETWEEN ? AND ?"
-    s.where(query, mil_time_plus_min(@time_string, -9),
-                    mil_time_plus_min(@time_string, 11))
+    psql_chars = "to_char(scrape_timestamp, 'HH24MI')"
+    s.where("#{psql_chars} > ? AND #{psql_chars} < ?", @min_time, @max_time)
   end
 
   def update!
@@ -30,8 +30,8 @@ class StationAvailability < ActiveRecord::Base
   end
 
   def mil_time_plus_min(mil_time, minutes)
-    puts mil_time.class
-    puts mil_time[0..1].class
+    #puts mil_time.class
+    #puts mil_time[0..1].class
     hour = mil_time[0..1]
     min = mil_time[2..3]
     time = Time.new(1988,1,18,hour,min) + minutes.minutes
