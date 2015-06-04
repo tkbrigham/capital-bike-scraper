@@ -30,6 +30,8 @@ class StationAvailability < ActiveRecord::Base
   end
 
   def mil_time_plus_min(mil_time, minutes)
+    puts mil_time.class
+    puts mil_time[0..1].class
     hour = mil_time[0..1]
     min = mil_time[2..3]
     time = Time.new(1988,1,18,hour,min) + minutes.minutes
