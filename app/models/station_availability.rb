@@ -2,8 +2,8 @@ class StationAvailability < ActiveRecord::Base
   belongs_to :station, primary_key: 'cb_id'
 
   after_initialize do |avail|
-    @min_time = mil_time_plus_min(self.time, -9)
-    @max_time = mil_time_plus_min(self.time, 11)
+    @min_time = mil_time_plus_min(self.time[0..3], -9)
+    @max_time = mil_time_plus_min(self.time[0..3], 11)
     @station = Station.find_by(cb_id: station_id)
     @stats = stats_by_station_and_time(station_id)
 
