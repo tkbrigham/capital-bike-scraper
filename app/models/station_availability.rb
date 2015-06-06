@@ -14,7 +14,7 @@ class StationAvailability < ActiveRecord::Base
     s = StationStat.where('station_id = ?', station_id)
     psql_chars = "to_char(scrape_timestamp, 'HH24MI')"
     query_str = "(#{psql_chars} BETWEEN ? AND ?) OR #{psql_chars} > ? OR #{psql_chars} < ?"
-    s.where(query_str, @min_time, @max_time, @min_time, @max_time)
+    s.where(query_str, @min_time, @max_time, "2349", "0008")
   end
 
   def update!
